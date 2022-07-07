@@ -48,7 +48,7 @@ for((i=0;i<$TotalInstanceNu;i++)) do
 
           for((j=0;j<$TotalInstanceNu;j++)) do
               #log
-          cat $path/image_info.json | /bin/jq -r '.getMemberServerImageInstanceListResponse.memberServerImageList[] | select(.originalServerInstanceNo == "'${serverNo[j]}'") | .memberServerImageName' >> $path/log.txt
+          cat $path/image_info.json | /bin/jq -r '.getMemberServerImageInstanceListResponse.memberServerImageInstanceList[] | select(.originalServerInstanceNo == "'${serverNo[j]}'") | .memberServerImageName' >> $path/log.txt
           done
       fi
 
