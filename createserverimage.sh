@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 #What do you want back-up instance?
 #servername
 servername[0]="test-backup"

@@ -2,7 +2,7 @@
 
 #What do you want back-up Delete instance?
 #servername
-servername[0]="itda-prd-document-was01"
+servername[0]="test-backup"
 #servername[1]="itda-prd-document-web01"
 #servername[2]="ls-prd-learn-was21"
 #servername[3]="ict-prd-batch01"
@@ -34,20 +34,16 @@ path="/root/shell/ncloud_cli/cli_linux/instance_info"
 #create json instance_info file
 $e_path./ncloud vserver getServerInstanceList > $path/total.json
 
-#Get ImageInfo
-$e_path./ncloud vserver getMemberServerImageInstanceList > $path/image_info.json
-
-
 echo $(date +"%y%m%d") Start Delete Back-up------------------------------------------ >> $path/log.txt
 
 for((i=0;i<$TotalInstanceNu;i++)) do
 
     #Get InstanceNo
-    imageNo[i]=`cat $path/image_info.json | jq -r '.getMemberServerImageListResponse.memberServerImageList[] | select(.memberServerImageName == "'${servername[i]}-$date_ago'") | .memberServerImageNo' `
+    imageNo[i]=`cat $path/image_info.json | jq -r '.getMemberServerImageListResponse.memberServerImageList[] | select(.memberServerImageName == "'${servername[i]}-$date_ago'") | .memberServerImageInstanceNo' `
 
 
 #Delete Image
-    $e_path./ncloud server deleteMemberServerImageInstances --memberServerImageNoList ${imageNo[i]}
+    $e_path./ncloud vserver deleteMemberServerImageInstances --memberServerImageInstanceNoList ${imageNo[i]}
     sleep 1s
         if [ $i -eq $logNu ];then
 
@@ -66,3 +62,4 @@ done
 echo ----------------------------------------------------------------------- >> $path/log.txt
 
 sleep 5s
+
