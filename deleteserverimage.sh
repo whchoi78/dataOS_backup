@@ -39,7 +39,7 @@ echo $(date +"%y%m%d") Start Delete Back-up-------------------------------------
 for((i=0;i<$TotalInstanceNu;i++)) do
 
     #Get InstanceNo
-    imageNo[i]=`cat $path/image_info.json | jq -r '.getMemberServerImageListResponse.memberServerImageList[] | select(.memberServerImageName == "'${servername[i]}-$date_ago'") | .memberServerImageInstanceNo' `
+    imageNo[i]=`cat $path/image_info.json | jq -r '.getMemberServerImageInstanceListResponse.memberServerImageList[] | select(.memberServerImageName == "'${servername[i]}-$date_ago'") | .memberServerImageInstanceNo' `
 
 
 #Delete Image
