@@ -1,4 +1,4 @@
-!/bin/bash
+# !/bin/bash
 #What do you want back-up instance?
 #servername
 servername[0]="test-backup"
@@ -59,3 +59,4 @@ for((i=0;i<$TotalInstanceNu;i++)) do
   echo $(date +"%y%m%d%H%M%S") END Back-up --------------------------------------------------- >> $path/log.txt
 
   sleep 5s
+#finish
