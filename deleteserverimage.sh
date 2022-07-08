@@ -51,7 +51,7 @@ for((i=0;i<$TotalInstanceNu;i++)) do
             $e_path./ncloud vserver getMemberServerImageInstanceList > $path/image_info.json
 
             #log
-            cat $path/image_info.json | jq -r '.getMemberServerImageListResponse.memberServerImageList[] | select(.memberServerImageStatusName == "terminating") | .memberServerImageName' >> $path/log.txt
+            cat $path/image_info.json | jq -r '.getMemberServerImageInstanceListResponse.memberServerImageList[] | select(.memberServerImageStatusName == "terminating") | .memberServerImageName' >> $path/log.txt
 
         fi
 
