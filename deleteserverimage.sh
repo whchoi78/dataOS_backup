@@ -34,12 +34,15 @@ path="/root/shell/ncloud_cli/cli_linux/instance_info"
 #create json instance_info file
 $e_path./ncloud vserver getServerInstanceList > $path/total.json
 
+#create image info
+$e_path/ncloud vserver getMemberServerImageInstanceList > $path/image_info.json
+
 echo $(date +"%y%m%d") Start Delete Back-up------------------------------------------ >> $path/log.txt
 
 for((i=0;i<$TotalInstanceNu;i++)) do
 
     #Get InstanceNo
-    imageNo[i]=`cat $path/image_info.json | jq -r '.getMemberServerImageInstanceListResponse.memberServerImageList[] | select(.memberServerImageName == "'${servername[i]}-$date_ago'") | .memberServerImageInstanceNo' `
+    imageNo[i]=`cat $path/image_info.json | jq -r '.getMemberServerImageInstanceListResponse.memberServerImageInstanceList[] | select(.memberServerImageName == "'${servername[i]}-$date_ago'") | .memberServerImageInstanceNo' `
 
 
 #Delete Image
@@ -51,7 +54,7 @@ for((i=0;i<$TotalInstanceNu;i++)) do
             $e_path./ncloud vserver getMemberServerImageInstanceList > $path/image_info.json
 
             #log
-            cat $path/image_info.json | jq -r '.getMemberServerImageInstanceListResponse.memberServerImageList[] | select(.memberServerImageStatusName == "terminating") | .memberServerImageName' >> $path/log.txt
+            cat $path/image_info.json | jq -r '.getMemberServerImageInstanceListResponse.memberServerImageInstanceList[] | select(.memberServerImageStatusName == "terminating") | .memberServerImageName' >> $path/log.txt
 
         fi
 
